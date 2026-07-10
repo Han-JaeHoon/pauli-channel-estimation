@@ -73,7 +73,3 @@ misspecified single-qubit model absorbs it into biased marginal rates.
 (method-of-moments), and the intersection matrix `Mₜ[a,b] = 2^{|a∩b|}` is verified
 positive-definite for all tested `n, t` — the linear-algebra crux (Lemma 6)
 behind `DᵀD` having full rank.
-
-## License
-
-MIT
