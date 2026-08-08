@@ -1,0 +1,347 @@
+%=======================================================================
+%  Research Overview Poster  --  Niels Bohr Quantum Summer School 2026
+%  Jaehun Han
+%
+%  A1 PORTRAIT (594 mm x 841 mm), 3-column layout, beamerposter.
+%
+%  HOW TO USE ON OVERLEAF
+%  ----------------------
+%  1. New Project -> Blank Project, paste this file as main.tex.
+%  2. Set the compiler to  pdfLaTeX  (Menu -> Settings -> Compiler).
+%  3. Drop your figure PDFs/PNGs into a  figures/  folder and replace the
+%     three \includegraphics paths below (search for "REPLACE").
+%     The placeholders compile out-of-the-box with NO external files.
+%
+%  Fonts/packages used are all standard on Overleaf; nothing extra needed.
+%=======================================================================
+\documentclass[final]{beamer}
+
+% ---- Poster geometry: A1 portrait -------------------------------------
+\usepackage[size=a1,orientation=portrait,scale=1.32]{beamerposter}
+
+% ---- Basic packages ----------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{qrcode}          % email QR code (comment out if unavailable)
+\usepackage{ragged2e}
+
+%=======================================================================
+%  COLOUR PALETTE  --  modern, calm, academic
+%=======================================================================
+\definecolor{ink}{HTML}{1A2233}        % near-black text
+\definecolor{accentA}{HTML}{2A6F97}    % MBQC       (blue)
+\definecolor{accentB}{HTML}{9C6644}    % Surface    (warm brown)
+\definecolor{accentC}{HTML}{4C956C}    % Distillation (green)
+\definecolor{band}{HTML}{22303C}       % header band
+\definecolor{softbg}{HTML}{F4F6F8}     % block body background
+\definecolor{rule}{HTML}{C9D3DB}
+
+%=======================================================================
+%  beamer theme tweaks  --  strip decoration, big clean blocks
+%=======================================================================
+\setbeamercolor{block title}{fg=white,bg=ink}
+\setbeamercolor{block body}{fg=ink,bg=softbg}
+\setbeamercolor{headline}{fg=white,bg=band}
+\setbeamerfont{block title}{series=\bfseries,size=\large}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+\setbeamercolor{caption name}{fg=ink}
+
+% Block spacing / rounded look
+\setbeamertemplate{block begin}{
+  \vskip.4ex
+  \begin{beamercolorbox}[colsep*=.75ex,rounded=true,leftskip=1.2ex,rightskip=1.2ex]{block title}
+    \usebeamerfont{block title}\insertblocktitle
+  \end{beamercolorbox}
+  \vskip-.2ex
+  \begin{beamercolorbox}[colsep*=.75ex,rounded=true,leftskip=1.2ex,rightskip=1.2ex,vmode]{block body}
+    \vskip.5ex
+}
+\setbeamertemplate{block end}{
+    \vskip.6ex
+  \end{beamercolorbox}
+  \vskip1.6ex
+}
+
+% Compact, readable itemize
+\setbeamertemplate{itemize item}{\raise0.5ex\hbox{\footnotesize$\bullet$}}
+\setbeamertemplate{itemize subitem}{\raise0.4ex\hbox{\scriptsize$\circ$}}
+\setlength{\leftmargini}{1.6em}
+
+% ---- Convenience macros ------------------------------------------------
+\newcommand{\rq}[1]{{\bfseries\color{ink}Research question.\ }#1}
+\newcommand{\seclabel}[2]{% coloured pill above each column title
+  \begin{beamercolorbox}[sep=0.4ex,center]{normal text}
+  \colorbox{#1}{\parbox{0.9\linewidth}{\centering\color{white}\bfseries\Large #2}}
+  \end{beamercolorbox}\vskip0.6ex}
+
+% Uniform figure placeholder box (used until you drop in real figures)
+\newcommand{\figplaceholder}[2]{% #1 = accent colour, #2 = caption text
+  \begin{tikzpicture}
+    \node[draw=#1,line width=2pt,rounded corners=6pt,fill=white,
+          minimum width=0.95\linewidth,minimum height=9cm,
+          align=center,text=#1]
+      {\bfseries FIGURE PLACEHOLDER\\[2mm]\normalfont\color{ink}\small #2};
+  \end{tikzpicture}}
+
+%=======================================================================
+%  TITLE / HEADER
+%=======================================================================
+\title{Three Perspectives on Efficient and Reliable Quantum Computation}
+\author{Jaehun Han}
+\institute{KAIST Graduate School of Quantum Science and Technology \quad$\cdot$\quad QIT Lab \quad$\cdot$\quad ETRI Quantum Computing Lab}
+
+% Custom headline (title band with QR + affiliation)
+\setbeamertemplate{headline}{
+  \begin{beamercolorbox}[wd=\paperwidth,sep=0pt]{headline}
+    \vskip1.2cm
+    \begin{columns}[c]
+      \begin{column}{0.14\paperwidth}\centering
+        % --- QR CODE: encodes email; replace text if you prefer a URL ---
+        \begin{beamercolorbox}[sep=0.6ex,rounded=true,center]{normal text}
+          \colorbox{white}{\qrcode[height=3.6cm]{mailto:pjhhan.research@gmail.com}}
+        \end{beamercolorbox}
+        {\color{white}\footnotesize\vskip2mm scan to contact}
+      \end{column}
+      \begin{column}{0.72\paperwidth}\centering
+        {\color{white}\usebeamerfont{title}\bfseries\huge \inserttitle\par}
+        \vskip6mm
+        {\color{white}\Large A research overview across three ongoing directions in quantum computing\par}
+        \vskip8mm
+        {\color{white}\LARGE\bfseries \insertauthor\par}
+        \vskip3mm
+        {\color{white}\large \insertinstitute\par}
+      \end{column}
+      \begin{column}{0.14\paperwidth}\centering
+        {\color{white}\footnotesize Niels Bohr\\Quantum\\Summer School\\Odense, 2026}
+      \end{column}
+    \end{columns}
+    \vskip1.2cm
+  \end{beamercolorbox}
+}
+
+%=======================================================================
+\begin{document}
+\begin{frame}[t]
+
+% ---- Unifying statement banner ----------------------------------------
+\begin{beamercolorbox}[wd=\textwidth,sep=1.2ex,rounded=true,center]{block body}
+  \large\itshape
+  Across three projects, I study how \textbf{structural information} in quantum
+  computation can be exploited to \textbf{reduce resources}, \textbf{extract hidden
+  error information}, and \textbf{improve noisy quantum states.}
+\end{beamercolorbox}
+\vskip1.4ex
+
+\begin{columns}[t]
+
+%=====================================================================
+%  COLUMN 1 -- MBQC RESOURCE OPTIMIZATION
+%=====================================================================
+\begin{column}{0.31\textwidth}
+\seclabel{accentA}{1.\ MBQC Resource Optimization}
+\hrule height 0pt
+
+\begin{block}{Research Question}
+  \RaggedRight
+  How can a gate-based quantum circuit be translated into
+  measurement-based quantum computation (MBQC) while
+  \textbf{minimizing the required graph-state resources}?
+\end{block}
+
+\begin{block}{Motivation}
+  \begin{itemize}
+    \item Direct gate$\to$MBQC mapping produces large cluster states.
+    \item Qubit count / entanglement is the practical bottleneck.
+    \item Goal: an \emph{implementation-friendly} MBQC representation.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Method / Framework}
+  \begin{itemize}
+    \item Translate variational gate circuits into graph states.
+    \item Optimizations currently explored:
+      \begin{itemize}
+        \item X-measurement chain compression
+        \item removing redundant preparation entangling gates
+        \item simpler single-qubit rotation decomposition
+      \end{itemize}
+    \item Treat measurement angles as variational parameters.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Current Direction / Insight}
+  \begin{itemize}
+    \item Preliminary reductions suggest parts of the graph
+          resource are \textbf{redundant and compressible}.
+    \item Structure of the source circuit guides where
+          qubits can be saved.
+  \end{itemize}
+  \footnotesize\itshape (ongoing optimization -- results are preliminary)
+\end{block}
+
+\begin{block}{Next Direction}
+  \begin{itemize}
+    \item Systematic resource-reduction rules.
+    \item Fully variational MBQC via measurement angles.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Key Schematic}
+  \figplaceholder{accentA}{gate-based circuit $\to$ initial MBQC graph
+    $\to$ optimized MBQC graph}
+  \vskip1ex
+  {\footnotesize\textbf{Fig.~1.} From a gate-based circuit to a reduced
+   graph-state resource after successive compression steps.}
+  % REPLACE with:
+  % \includegraphics[width=0.95\linewidth]{figures/mbqc.pdf}
+\end{block}
+\end{column}
+
+%=====================================================================
+%  COLUMN 2 -- SURFACE-CODE SYNDROME UTILIZATION
+%=====================================================================
+\begin{column}{0.31\textwidth}
+\seclabel{accentB}{2.\ Surface-Code Syndrome Utilization}
+\hrule height 0pt
+
+\begin{block}{Research Question}
+  \RaggedRight
+  Can \textbf{temporal syndrome information} identify dominant
+  correlated faults that are \textbf{invisible in a single round}?
+\end{block}
+
+\begin{block}{Motivation}
+  \begin{itemize}
+    \item Distance-3 rotated surface code.
+    \item In a single round, different CNOT fault locations can
+          produce the \textbf{same syndrome signature}.
+    \item This creates an information-theoretic ambiguity.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Method / Framework}
+  \begin{itemize}
+    \item Use \textbf{multi-round} detection-event sequences.
+    \item Approaches explored:
+      \begin{itemize}
+        \item direct statistical separability analysis
+        \item decoder-transformed features
+        \item sequence models: RNN, GRU, Transformer
+      \end{itemize}
+  \end{itemize}
+\end{block}
+
+\begin{block}{Current Insight}
+  \begin{itemize}
+    \item Faults indistinguishable in a \textbf{single shot} become
+          \emph{partially separable} once the \textbf{temporal
+          sequence} is used.
+    \item Time structure carries fault information the static
+          syndrome hides.
+  \end{itemize}
+  \footnotesize\itshape (ongoing study -- qualitative, no fixed numbers yet)
+\end{block}
+
+\begin{block}{Next Direction}
+  \begin{itemize}
+    \item Quantify how much correlation is recoverable vs.\ distance/rounds.
+    \item Link separability to decoder performance.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Key Schematic}
+  \figplaceholder{accentB}{surface-code layout + syndrome-sequence
+    heatmap; single-shot ambiguity vs.\ temporal separation}
+  \vskip1ex
+  {\footnotesize\textbf{Fig.~2.} Repeated syndromes over time separate
+   faults that share one signature in a single round.}
+  % REPLACE with:
+  % \includegraphics[width=0.95\linewidth]{figures/surface.pdf}
+\end{block}
+\end{column}
+
+%=====================================================================
+%  COLUMN 3 -- VIRTUAL DISTILLATION THRESHOLD
+%=====================================================================
+\begin{column}{0.31\textwidth}
+\seclabel{accentC}{3.\ Operational Threshold of Virtual Distillation}
+\hrule height 0pt
+
+\begin{block}{Research Question}
+  \RaggedRight
+  When does virtual distillation remain beneficial once the
+  \textbf{purification circuit itself is noisy}?
+\end{block}
+
+\begin{block}{Motivation}
+  \begin{itemize}
+    \item Purification is usually analysed as ideal.
+    \item Real purification circuits add their own gate noise.
+    \item Core message: \textbf{purification must be reliable
+          enough to stay useful.}
+  \end{itemize}
+\end{block}
+
+\begin{block}{Method / Framework}
+  \begin{itemize}
+    \item Case study: noisy Bell-state purification.
+    \item Include operational noise of the controlled-SWAP
+          (Fredkin) gate.
+    \item Also analyse Fredkin $\to$ CNOT decomposition with
+          noisy CNOTs.
+    \item Compare: ideal / noisy-coherent / destructive
+          (ancilla-free) schemes.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Operational Threshold}
+  \begin{itemize}
+    \item Defined as the gate-noise level below which
+          output fidelity is \textbf{actually improved}.
+    \item Different decompositions / destructive schemes can show
+          \textbf{qualitatively different} threshold behaviour.
+  \end{itemize}
+  \footnotesize\itshape (analytical + numerical work in progress;
+  specific thresholds omitted here)
+\end{block}
+
+\begin{block}{Next Direction}
+  \begin{itemize}
+    \item Map thresholds across schemes and decompositions.
+    \item Identify most noise-robust purification strategy.
+  \end{itemize}
+\end{block}
+
+\begin{block}{Key Schematic}
+  \figplaceholder{accentC}{output fidelity vs.\ operational gate-error
+    rate, with the beneficial region marked by a threshold}
+  \vskip1ex
+  {\footnotesize\textbf{Fig.~3.} A threshold separates the regime where
+   purification helps from where its own noise dominates.}
+  % REPLACE with:
+  % \includegraphics[width=0.95\linewidth]{figures/distillation.pdf}
+\end{block}
+\end{column}
+
+\end{columns}
+
+% ---- Unifying conclusion ban -----------------------------------------
+\vskip0.4ex
+\begin{beamercolorbox}[wd=\textwidth,sep=1.1ex,rounded=true,center]{block title}
+  \normalsize
+  \textbf{One theme.}\ \
+  \textcolor{white}{Exploiting structure in quantum computation:}\ \
+  \textcolor{white}{$\;$compress it (MBQC)$\;\;\longrightarrow\;\;$read it (syndromes)$\;\;\longrightarrow\;\;$restore it (distillation).}\ \
+  Together, resource optimization, error inference, and noisy-state
+  purification point toward more \textbf{efficient} and \textbf{reliable}
+  quantum computation.
+\end{beamercolorbox}
+
+\end{frame}
+\end{document}
